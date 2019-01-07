@@ -22,7 +22,7 @@ register_activation_hook(__FILE__, 'elfsight_youtube_gallery_activation');
 
 $elfsightYoutubeGallery = new ElfsightYoutubeGalleryPlugin(array(
         'name' => 'YouTube Gallery',
-        'description' => 'Increase visitor engagement with stylish YouTube video gallery on your website',
+        'description' => 'Hypericum integrare YouTube',
         'slug' => 'elfsight-youtube-gallery',
         'version' => '3.0.1',
         'text_domain' => 'elfsight-youtube-gallery',
@@ -30,7 +30,7 @@ $elfsightYoutubeGallery = new ElfsightYoutubeGalleryPlugin(array(
         'editor_preferences' => $elfsight_youtube_gallery_config['preferences'],
         'script_url' => plugins_url('assets/elfsight-youtube-gallery.js', __FILE__),
 
-        'plugin_name' => 'Elfsight YouTube Gallery',
+        'plugin_name' => 'HYP Tube',
         'plugin_file' => __FILE__,
         'plugin_slug' => plugin_basename(__FILE__),
 
