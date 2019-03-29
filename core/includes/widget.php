@@ -22,8 +22,8 @@ if (!class_exists('ElfsightYoutubeGalleryWidget')) {
 
             parent::__construct(
                 $this->configSlug,
-                __($this->configPluginName, $this->configTextDomain),
-                array('description' => __($this->configDescription, $this->configTextDomain))
+                esc_html__($this->configPluginName, $this->configTextDomain),
+                array('description' => esc_html__($this->configDescription, $this->configTextDomain))
             );
 		}
 
@@ -43,18 +43,18 @@ if (!class_exists('ElfsightYoutubeGalleryWidget')) {
 
 			if (!empty($widgets['data'])) {?>
 				<p>
-					<label for="<?php echo $this->get_field_id('id'); ?>"><?php _e('Select a widget:', $this->configTextDomain); ?></label>
-					<select class='widefat' id="<?php echo $this->get_field_id('id'); ?>" name="<?php echo $this->get_field_name('id'); ?>">
+					<label for="<?php echo esc_html($this->get_field_id('id')); ?>"><?php esc_html_e('Select a widget:', $this->configTextDomain); ?></label>
+					<select class='widefat' id="<?php echo esc_html($this->get_field_id('id')); ?>" name="<?php echo esc_html($this->get_field_name('id')); ?>">
 						<option value="0">— Select —</option>
 						<?php foreach ($widgets['data'] as $widget) { ?>
-							<option value="<?php echo $widget['id'] ?>"<?php echo (!empty($instance['id']) && $instance['id'] == $widget['id']) ? ' selected' : ''; ?>><?php echo $widget['name']; ?></option>
+							<option value="<?php echo esc_html($widget['id']); ?>"<?php echo (!empty($instance['id']) && $instance['id'] == $widget['id']) ? ' selected' : ''; ?>><?php echo esc_html($widget['name']); ?></option>
 						<?php } ?>
 					</select>
 				</p>
 			<?php } else { ?>
 				<p>
-					<?php _e('No widgets yet.', $this->configTextDomain); ?>
-                	<a href="<?php echo esc_url(admin_url('admin.php?page=' . $this->configSlug)); ?>#/add-widget/"><?php _e('Create the first one.', $this->configTextDomain); ?></a>
+					<?php esc_html_e('No widgets yet.', $this->configTextDomain); ?>
+                	<a href="<?php echo esc_url(admin_url('admin.php?page=' . $this->configSlug)); ?>#/add-widget/"><?php esc_html_e('Create the first one.', $this->configTextDomain); ?></a>
 				</p>
 			<?php }
 		}

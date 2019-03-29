@@ -105,6 +105,8 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
             }
 
             wp_register_script($this->slug . '-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array(), $this->version, true);
+//            wp_register_script($this->slug . '-admin-editor', plugins_url('assets/elfsight-editor.js', $this->pluginFile), array(), $this->version, true);
+            wp_register_script($this->slug . '-admin-editor-slider', 'https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.js', array(), $this->version, true);
 
             if ($this->customScriptUrl) {
                 wp_register_script($this->slug . '-admin-custom', $this->customScriptUrl, array('jquery', $this->slug . '-admin'), $this->version, true);
@@ -119,6 +121,8 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                 }
 
                 wp_enqueue_script($this->slug . '-admin');
+//                wp_enqueue_script($this->slug . '-admin-editor');
+                wp_enqueue_script($this->slug . '-admin-editor-slider');
                 if ($this->customScriptUrl) {
                     wp_enqueue_script($this->slug . '-admin-custom');
                 }
@@ -176,16 +180,16 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
             }
 
             ?>
-            <div class="<?php echo $activation_css_classes; ?>elfsight-admin wrap">
+            <div class="<?php echo esc_html($activation_css_classes); ?>elfsight-admin wrap">
             <h2 class="elfsight-admin-wp-notifications-hack"></h2>
 
             <div class="elfsight-admin-wrapper">
                 <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'header.php'))); ?>
 
                 <main class="elfsight-admin-main elfsight-admin-loading"
-                      data-elfsight-admin-slug="<?php echo $this->slug; ?>"
-                      data-elfsight-admin-user='<?php echo json_encode($this->user, JSON_HEX_QUOT); ?>'
-                      data-elfsight-admin-widgets-clogged="<?php echo $widgets_clogged; ?>">
+                      data-elfsight-admin-slug="<?php echo esc_html($this->slug); ?>"
+                      data-elfsight-admin-user='<?php echo esc_html(json_encode($this->user, JSON_HEX_QUOT)); ?>'
+                      data-elfsight-admin-widgets-clogged="<?php echo esc_html($widgets_clogged); ?>">
                     <div class="elfsight-admin-loader"></div>
 
                     <div class="elfsight-admin-menu-container">
@@ -208,8 +212,6 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                         require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'popup-rating.php')));
                     }
                 ?>
-
-                <?php //require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'other-products.php'))); ?>
             </div>
             </div>
         <?php }
@@ -266,7 +268,7 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
 
                 if (file_exists($path) && !is_writable($path)) {
                     $result['success'] = false;
-                    $result['error'] = __('The file can not be overwritten. Please check the file permissions.', $this->textDomain);
+                    $result['error'] = esc_html__('The file can not be overwritten. Please check the file permissions.', $this->textDomain);
 
                 } else {
                     $result['success'] = true;
@@ -358,7 +360,7 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                     'id' => 'activation',
                     'menu_title' => 'Activation',
                     'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-activation.php')),
-                    'notification' => __('The plugin is not activated', $this->textDomain)
+                    'notification' => esc_html__('The plugin is not activated', $this->textDomain)
                 ),
                 array(
                     'id' => 'error',

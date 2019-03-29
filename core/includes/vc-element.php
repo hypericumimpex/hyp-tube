@@ -46,11 +46,11 @@ if (!class_exists('ElfsightYoutubeGalleryVCElement')) {
 				'params' => array(
 					array(
 						'type' => 'dropdown',
-						'heading' => __('Select a widget ', $this->textDomain),
+						'heading' => esc_html__('Select a widget ', $this->textDomain),
 						'param_name' => 'id',
 						'value' => $widgetsList,
                         'save_always' => true,
-						'description' => sprintf(__('You can manage the widgets on the <a href="%1$s" target="_blank">plugin\'s settings page</a>.', $this->textDomain), esc_url(admin_url('admin.php?page=' . $this->slug)))
+						'description' => esc_html__(sprintf('You can manage the widgets on the <a href="%1$s" target="_blank">plugin\'s settings page</a>.', esc_url(admin_url('admin.php?page=' . $this->slug))), $this->textDomain)
 					)
 				)
 			));

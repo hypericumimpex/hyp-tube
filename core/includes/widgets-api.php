@@ -58,7 +58,8 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
                     `active` int(1) NOT NULL DEFAULT "1",
                     `options` text COLLATE ' . $collate . ' NOT NULL,
                     PRIMARY KEY (`id`)
-                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;',
+                true
             );
         }
 
@@ -81,6 +82,11 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
             } else {
                 $result['status'] = false;
                 $result['error'] = sprintf('Unknown endpoint "%s/%s"', $method, $endpoint);
+            }
+
+            if (ob_get_length()) {
+                ob_end_clean();
+                ob_start();
             }
 
             header('Content-type: application/json; charset=utf-8');
@@ -142,7 +148,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
 
             if ($invalid_fields) {
                 $result['status'] = false;
-                $result['error'] = __('Incoming data is invalid.', $this->textDomain);
+                $result['error'] = esc_html__('Incoming data is invalid.', $this->textDomain);
                 $result['invalid_fields'] = $invalid_fields;
             } else {
                 $status = !!$wpdb->insert($table_name, array(
@@ -157,7 +163,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
                 $result['id'] = $wpdb->insert_id;
 
                 if (!$status) {
-                    $result['error'] = __('An MySQL error occurred while adding new widget.', $this->textDomain);
+                    $result['error'] = esc_html__('An MySQL error occurred while adding new widget.', $this->textDomain);
 
                 } else if (get_option(str_replace('-', '_', $this->slug) . '_widgets_clogged') !== 'true') {
                     update_option(str_replace('-', '_', $this->slug) . '_widgets_clogged', 'true');
@@ -174,7 +180,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
 
             if (!$id) {
                 $result['status'] = false;
-                $result['error'] = __('Parameter "id" is required.', $this->textDomain);
+                $result['error'] = esc_html__('Parameter "id" is required.', $this->textDomain);
 
                 return;
             }
@@ -183,7 +189,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
             $result['status'] = $status;
 
             if (!$status) {
-                $result['error'] = __('Widget with the specified id doesnt exist.', $this->textDomain);
+                $result['error'] = esc_html__('Widget with the specified id doesnt exist.', $this->textDomain);
             }
         }
 
@@ -196,7 +202,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
 
             if (!$id) {
                 $result['status'] = false;
-                $result['error'] = __('Parameter "id" is required.', $this->textDomain);
+                $result['error'] = esc_html__('Parameter "id" is required.', $this->textDomain);
 
                 return;
             }
@@ -205,7 +211,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
             $result['status'] = $status;
 
             if (!$status) {
-                $result['error'] = __('Widget with the specified id doesnt exist.', $this->textDomain);
+                $result['error'] = esc_html__('Widget with the specified id doesnt exist.', $this->textDomain);
             }
         }
 
@@ -220,7 +226,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
 
             if (!$id) {
                 $result['status'] = false;
-                $result['error'] = __('Parameter "id" is required.', $this->textDomain);
+                $result['error'] = esc_html__('Parameter "id" is required.', $this->textDomain);
 
                 return;
             }
@@ -248,7 +254,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
 
             if ($invalid_fields) {
                 $result['status'] = false;
-                $result['error'] = __('Incoming data is invalid.', $this->textDomain);
+                $result['error'] = esc_html__('Incoming data is invalid.', $this->textDomain);
                 $result['invalid_fields'] = $invalid_fields;
 
             } else {
@@ -256,7 +262,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidgetsApi')) {
                 $result['status'] = $status;
 
                 if (!$status) {
-                    $result['error'] = __('Widget with the specified id doesnt exist.', $this->textDomain);
+                    $result['error'] = esc_html__('Widget with the specified id doesnt exist.', $this->textDomain);
                 }
             }
         }

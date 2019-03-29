@@ -1,11 +1,11 @@
 /*
     Elfsight Youtube Gallery
-    Version: 3.0.1
-    Release date: Mon Nov 26 2018
+    Version: 3.1.0
+    Release date: Fri Mar 22 2019
 
     https://elfsight.com
 
-    Copyright (c) 2018 Elfsight, LLC. ALL RIGHTS RESERVED
+    Copyright (c) 2019 Elfsight, LLC. ALL RIGHTS RESERVED
 */
 
 (function(eapps) {

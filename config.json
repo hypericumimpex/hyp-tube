@@ -1147,6 +1147,22 @@
             {
               "value": "ja",
               "name": "日本語"
+            },
+            {
+              "value": "ko",
+              "name": "한국어"
+            },
+            {
+              "value": "ro",
+              "name": "Romanian"
+            },
+            {
+              "value": "he",
+              "name": "עברית"
+            },
+            {
+              "value": "hu",
+              "name": "Magyar"
             }
           ]
         },
