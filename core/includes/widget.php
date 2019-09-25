@@ -45,7 +45,7 @@ if (!class_exists('ElfsightYoutubeGalleryWidget')) {
 				<p>
 					<label for="<?php echo esc_html($this->get_field_id('id')); ?>"><?php esc_html_e('Select a widget:', $this->configTextDomain); ?></label>
 					<select class='widefat' id="<?php echo esc_html($this->get_field_id('id')); ?>" name="<?php echo esc_html($this->get_field_name('id')); ?>">
-						<option value="0">— Select —</option>
+						<option value="0"><?php esc_html_e('— Select —', $this->configTextDomain); ?></option>
 						<?php foreach ($widgets['data'] as $widget) { ?>
 							<option value="<?php echo esc_html($widget['id']); ?>"<?php echo (!empty($instance['id']) && $instance['id'] == $widget['id']) ? ' selected' : ''; ?>><?php echo esc_html($widget['name']); ?></option>
 						<?php } ?>

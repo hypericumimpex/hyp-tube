@@ -1,7 +1,7 @@
 /*
     Elfsight Youtube Gallery
-    Version: 3.1.0
-    Release date: Fri Mar 22 2019
+    Version: 3.2.0
+    Release date: Wed May 15 2019
 
     https://elfsight.com
 

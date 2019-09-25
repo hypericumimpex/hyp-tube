@@ -14,8 +14,8 @@ if (!defined('ABSPATH')) exit;
                     <h4><?php esc_html_e('CodeCanyon License', $this->textDomain); ?></h4>
 
                     <div class="elfsight-admin-page-activation-status">
-                        <span class="elfsight-admin-page-activation-status-activated"><?php esc_html_e('Activated', $this->textDomain); ?></span>
-                        <span class="elfsight-admin-page-activation-status-not-activated"><?php esc_html_e('Not Activated', $this->textDomain); ?></span>
+                        <span class="elfsight-admin-page-activation-status-activated"></span>
+                        <span class="elfsight-admin-page-activation-status-not-activated"></span>
                     </div>
                 </div>
 
@@ -62,15 +62,34 @@ if (!defined('ABSPATH')) exit;
                     <div class="elfsight-admin-page-activation-faq-list-item-question"><?php esc_html_e('How do I benefit from activating the license in the plugin?', $this->textDomain); ?></div>
 
                     <div class="elfsight-admin-page-activation-faq-list-item-answer">
-                        <?php esc_html__(printf('Activating the <a href="%1$s" target="_blank">plugin</a> will give you access to the in-plugin support and automatic plugin updates. Now bug fixes and new features will be automatically implemented in your plugin.', $this->productUrl), $this->textDomain); ?>
+                        <?php
+                            printf(
+                                /* translators: %1$s: link */
+                                esc_html__('Activating the %1$s will give you access to the in-plugin support and automatic plugin updates. Now bug fixes and new features will be automatically implemented in your plugin.', $this->textDomain),
+                                sprintf(
+                                    '<a href="%s" target="_blank">%s</a>',
+                                    $this->productUrl,
+                                    /* translators: Activating the [plugin] will give .. */
+                                    esc_html__('plugin', $this->textDomain)
+                                )
+                            );
+                        ?>
                     </div>
                 </div>
 
                 <div class="elfsight-admin-page-activation-faq-list-item">
                     <div class="elfsight-admin-page-activation-faq-list-item-question"><?php esc_html_e('What is CodeCanyon purchase code?', $this->textDomain); ?></div>
                     <div class="elfsight-admin-page-activation-faq-list-item-answer">
-                        <?php esc_html__(printf('Purchase code is a license key, that you get after buying the plugin on <a href="%1$s" target="_blank">Codecanyon</a>. It looks like this: 13fc2617-5d1d-4127-873a-feb85d27a012.', $this->productUrl), $this->textDomain); ?>
-
+                        <?php
+                            printf(
+                                /* translators: %1$s: link */
+                                esc_html__('Purchase code is a license key, that you get after buying the plugin on %1$s. It looks like this: 13fc2617-5d1d-4127-873a-feb85d27a012.', $this->textDomain),
+                                sprintf(
+                                    '<a href="%s" target="_blank">%s</a>',
+                                    $this->productUrl, 'CodeCanyon'
+                                )
+                            );
+                        ?>
                         <div class="elfsight-admin-page-activation-faq-list-item-answer-image">
                             <img src="<?php echo plugins_url('assets/img/faq-what-is-purchase-code.jpg', $this->pluginFile); ?>">
                         </div>
@@ -80,8 +99,24 @@ if (!defined('ABSPATH')) exit;
                 <div class="elfsight-admin-page-activation-faq-list-item">
                     <div class="elfsight-admin-page-activation-faq-list-item-question"><?php esc_html_e('How do I get my purchase code?', $this->textDomain); ?></div>
                     <div class="elfsight-admin-page-activation-faq-list-item-answer">
-                        <?php esc_html__(printf('After purchasing the <a href="%1$s" target="_blank">item</a>, go to <a href="http://codecanyon.net/downloads" target="_blank">http://codecanyon.net/downloads</a>, click "Download" and select “License Certificate & Purchase Code”. You’ll find your purchase code in the downloaded file. To find out more, read: <a href="https://elfsight.com/blog/2016/04/where-to-find-your-envato-purchase-code/" target="_blank">Where to find your Envato purchase code?</a>', $this->productUrl), $this->textDomain); ?>
-
+                        <?php
+                            printf(
+                                /* translators: %1$s: product link, %2$s: download link, %3$s: help link */
+                                esc_html__('After purchasing the %1$s, go to %2$s, click "Download" and select “License Certificate & Purchase Code”. You’ll find your purchase code in the downloaded file. To find out more, read: %3$s', $this->textDomain),
+                                sprintf(
+                                    '<a href="%s" target="_blank">%s</a>',
+                                    $this->productUrl,
+                                    /* translators: After purchasing the [item], go to .. */
+                                    esc_html__('item', $this->textDomain)
+                                ),
+                                '<a href="http://codecanyon.net/downloads" target="_blank">http://codecanyon.net/downloads</a>',
+                                sprintf(
+                                    '<a href="%s" target="_blank">%s</a>',
+                                    'https://elfsight.com/blog/2016/04/where-to-find-your-envato-purchase-code/',
+                                    esc_html__('Where to find your Envato purchase code?', $this->textDomain)
+                                )
+                            );
+                        ?>
                         <div class="elfsight-admin-page-activation-faq-list-item-answer-image">
                             <img src="<?php echo plugins_url('assets/img/faq-how-to-get.jpg', $this->pluginFile); ?>">
                         </div>

@@ -61,6 +61,11 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
 
             add_action('init', array($this, 'initBlock'));
             add_action('enqueue_block_editor_assets', array($this, 'enqueueBlockAssets'));
+            add_action('plugins_loaded', array($this, 'loadTextDomain'));
+        }
+
+        public function loadTextDomain() {
+            load_plugin_textdomain($this->textDomain, false, dirname(plugin_basename($this->pluginFile)) . '/languages/');
         }
 
         public function initBlock() {
@@ -68,7 +73,7 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
                 register_block_type($this->slug.'/block', array(
                     'attributes' => array(
                         'id' => array(
-                            'type' => 'number',
+                            'type' => 'string'
                         )
                     ),
                     'render_callback' => array($this, 'addShortcode')
@@ -95,7 +100,7 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
                 $custom_css_path = $uploads_dir . '/' . $this->slug . '-custom.css';
                 $custom_js_path = $uploads_dir . '/' . $this->slug . '-custom.js';
 
-                wp_enqueue_script($this->slug, $this->scriptUrl, array('jquery'), $this->version);
+                wp_enqueue_script($this->slug, $this->scriptUrl, array(), $this->version);
 
                 if (is_readable($custom_js_path) && filesize($custom_js_path) > 0) {
                     wp_enqueue_script($this->slug . '-custom', $uploads_url . '/' . $this->slug . '-custom.js', array(), $this->version);
@@ -112,12 +117,14 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
                 if (isset($property['type']) && $property['type'] == 'subgroup') {
                     $defaults = $this->recursiveDefaults($property['subgroup']['properties'], $defaults);
                 } else {
+                    $defaultValue = null;
+
                     if (isset($property['defaultValue'])) {
-                        $defaults[$property['id']] = $property['defaultValue'];
+                        $defaultValue = $property['defaultValue'];
                     }
 
-                    if ($property['type'] === 'complex' && !isset($defaults[$property['id']])) {
-                        $defaults[$property['id']] = null;
+                    if (isset($property['id'])) {
+                        $defaults[$property['id']] = $defaultValue;
                     }
                 }
             }
@@ -161,8 +168,6 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
                     array_merge(array_keys($widget_options), array_keys($atts)),
                     array_merge(array_values($widget_options), array_values($atts))
                 );
-
-                unset($atts['id']);
             }
 
             $options = shortcode_atts($defaults, $atts, str_replace('-', '_', $this->slug));
@@ -172,7 +177,13 @@ if (!class_exists('ElfsightYoutubeGalleryPlugin')) {
 
             $version = $this->version;
 
-            $result = '<div class="elfsight-widget-' . esc_html(str_replace('elfsight-', '', $this->slug)) . ' elfsight-widget" data-' . esc_html($this->slug) . '-options="' . esc_html($options_string) . '" data-' . esc_html($this->slug) . '-version="' . esc_html($version) . '"></div>';
+            $result = '
+            <div 
+                class="elfsight-widget-' . esc_html(str_replace('elfsight-', '', $this->slug)) . ' elfsight-widget" 
+                data-' . esc_html($this->slug) . '-options="' . esc_html($options_string) . '" 
+                data-' . esc_html($this->slug) . '-version="' . esc_html($version) . '">
+            </div>
+            ';
 
             return $result;
         }

@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 ?>
 <article class="elfsight-admin-page-support elfsight-admin-page" data-elfsight-admin-page-id="support">
     <div class="elfsight-admin-page-support-blocked">
-        <div class="elfsight-admin-page-heading">
+        <div class="elfsight-admin-page-heading elfsight-admin-page-support-heading">
             <h2><?php esc_html_e('Support', $this->textDomain); ?></h2>
 
             <svg class="elfsight-admin-page-support-blocked-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="15" viewBox="0 0 12 15"><defs><path id="bikla" d="M7.55 8.73h.63v-.91a3.82 3.82 0 1 1 7.63 0v.9h.65c1.05 0 1.9 1.07 1.9 2.38v5.53c0 1.3-.85 2.37-1.9 2.37H7.55c-1.06 0-1.91-1.06-1.91-2.37V11.1c0-1.31.85-2.37 1.9-2.37zm7-.91a2.54 2.54 0 1 0-5.1 0v.9h5.1zM12 14.86a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></defs><g><g transform="translate(-5.64 -4)"><use xlink:href="#bikla"/></g></g></svg>
@@ -18,7 +18,17 @@ if (!defined('ABSPATH')) exit;
                 <h3 class="elfsight-admin-page-support-blocked-message-title"><?php esc_html_e('Support section is only available for CodeCanyon clients with activated license', $this->textDomain); ?></h3>
 
                 <div class="elfsight-admin-page-support-blocked-message-text">
-                    <?php esc_html__(printf('To unlock the in-plugin support, please, activate your license by entering CodeCanyon purchase code of the <a href="%1$s" target="_blank">plugin</a>.', $this->productUrl), $this->textDomain); ?>
+                    <?php
+                        printf(
+                            /* translators: %1$s: link */
+                            esc_html__('To unlock the in-plugin support, please, activate your license by entering CodeCanyon purchase code of the %1$s.', $this->textDomain),
+                            sprintf(
+                                '<a href="%s" target="_blank">%s</a>',
+                                $this->productUrl,
+                                esc_html__('plugin', $this->textDomain)
+                            )
+                        );
+                    ?>
                 </div>
 
                 <div class="elfsight-admin-page-support-blocked-message-action">

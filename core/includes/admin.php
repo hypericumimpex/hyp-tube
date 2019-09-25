@@ -63,6 +63,8 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
             $this->productReviewUrl = 'https://codecanyon.net/downloads';
             $this->supportUrl = $config['support_url'];
 
+            $this->enqueueMedia = !empty($config['enqueue_media']);
+
             $this->capability = apply_filters('elfsight_admin_capability', $this->roleCapabitily[get_option($this->getOptionName('access_role'), 'admin')]);
 
             $this->customPages = !empty($config['admin_custom_pages']) ? $config['admin_custom_pages'] : array();
@@ -78,6 +80,8 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
             add_action('wp_ajax_' . $this->getOptionName('update_preferences'), array($this, 'updatePreferences'));
             add_action('wp_ajax_' . $this->getOptionName('update_activation_data'), array($this, 'updateActivationData'));
             add_action('wp_ajax_' . $this->getOptionName('rating_send'), array($this, 'sendRating'));
+
+            delete_option($this->getOptionName('rating_sent'));
         }
 
         public function addMenuPage() {
@@ -92,7 +96,7 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
             $this->user = array(
                 'id' => $user->ID,
                 'public_id' => $public_id,
-                'user_email' => $user->user_email,
+                'email' => $user->user_email,
                 'display_name' => $user->display_name,
             );
         }
@@ -104,12 +108,12 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                 wp_register_style($this->slug . '-admin-custom', $this->customStyleUrl, array($this->slug . '-admin'), $this->version);
             }
 
-            wp_register_script($this->slug . '-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array(), $this->version, true);
+            wp_register_script($this->slug . '-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array('jquery'), $this->version, true);
 //            wp_register_script($this->slug . '-admin-editor', plugins_url('assets/elfsight-editor.js', $this->pluginFile), array(), $this->version, true);
             wp_register_script($this->slug . '-admin-editor-slider', 'https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.js', array(), $this->version, true);
 
             if ($this->customScriptUrl) {
-                wp_register_script($this->slug . '-admin-custom', $this->customScriptUrl, array('jquery', $this->slug . '-admin'), $this->version, true);
+                wp_register_script($this->slug . '-admin-custom', $this->customScriptUrl, array($this->slug . '-admin'), $this->version, true);
             }
         }
 
@@ -125,6 +129,10 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                 wp_enqueue_script($this->slug . '-admin-editor-slider');
                 if ($this->customScriptUrl) {
                     wp_enqueue_script($this->slug . '-admin-custom');
+                }
+
+                if ($this->enqueueMedia) {
+                    wp_enqueue_media();
                 }
 
                 // remove emoji
@@ -339,7 +347,7 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                 ),
                 array(
                     'id' => 'widgets',
-                    'menu_title' => 'Widgets',
+                    'menu_title' => translate('Widgets', $this->textDomain),
                     'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-widgets.php'))
                 ),
                 array(
@@ -348,19 +356,19 @@ if (!class_exists('ElfsightYoutubeGalleryPluginAdmin')) {
                 ),
                 array(
                     'id' => 'preferences',
-                    'menu_title' => 'Preferences',
+                    'menu_title' => translate('Preferences', $this->textDomain),
                     'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-preferences.php'))
                 ),
                 array(
                     'id' => 'support',
-                    'menu_title' => 'Support',
+                    'menu_title' => translate('Support', $this->textDomain),
                     'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-support.php'))
                 ),
                 array(
                     'id' => 'activation',
-                    'menu_title' => 'Activation',
+                    'menu_title' => translate('Activation', $this->textDomain),
                     'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-activation.php')),
-                    'notification' => esc_html__('The plugin is not activated', $this->textDomain)
+                    'notification' => translate('The plugin is not activated', $this->textDomain)
                 ),
                 array(
                     'id' => 'error',

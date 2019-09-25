@@ -34,7 +34,7 @@ if (!defined('ABSPATH')) exit;
 
         <div class="elfsight-admin-header-main-version">
             <span class="elfsight-admin-tooltip-trigger">
-                <span class="elfsight-admin-header-main-version-text"><?php esc_html_e('Version ' . $this->version, $this->textDomain); ?></span>
+                <span class="elfsight-admin-header-main-version-text"><?php /* translators: %s: version */ printf(esc_html__('Version %s', $this->textDomain), $this->version); ?></span>
 
                 <?php if ($activated && !empty($last_check_datetime)): ?>
                     <span class="elfsight-admin-tooltip-content">
@@ -43,7 +43,7 @@ if (!defined('ABSPATH')) exit;
 
                             <?php if (!empty($last_upgraded_at)) {?>
                                 <br>
-                                <?php esc_html__(printf('Last updated on %1$s', date_i18n(get_option('date_format'), $last_upgraded_at)), $this->textDomain); ?>
+                                <?php /* translators: %s: date */ printf(esc_html__('Last updated on %1$s', $this->textDomain), date_i18n(get_option('date_format'), $last_upgraded_at)); ?>
                             <?php } ?>
                         </span>
                     </span>

@@ -3,10 +3,10 @@
 if (!defined('ABSPATH')) exit;
 
 ?><article class="elfsight-admin-page-welcome elfsight-admin-page" data-elfsight-admin-page-id="welcome">
-    <h1><?php esc_html_e('Welcome to ' . $this->pluginName, $this->textDomain); ?></h1>
+    <h1><?php /* translators: %s: Plugin Name */ printf(esc_html__('Welcome to %s', $this->textDomain), $this->pluginName); ?></h1>
 
     <p class="elfsight-admin-page-welcome-subheading">
-        <?php esc_html_e($this->description, $this->textDomain); ?><br>
+        <?php esc_html_e($this->description); ?><br>
         <strong><?php esc_html_e('Let’s create your first widget!', $this->textDomain); ?></strong>
     </p>
 
